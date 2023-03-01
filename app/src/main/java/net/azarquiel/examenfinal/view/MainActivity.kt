@@ -1,12 +1,14 @@
 package net.azarquiel.examenfinal.view
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Toast
@@ -75,8 +77,8 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
     private fun initRV() {
         adapter = CategoriaAdapter(this, R.layout.rowcategoria)
-        binding.cm.rvzonas.layoutManager = LinearLayoutManager(this)
-        binding.cm.rvzonas.adapter = adapter
+        binding.cm.rvcategoria.layoutManager = LinearLayoutManager(this)
+        binding.cm.rvcategoria.adapter = adapter
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -217,5 +219,12 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         Toast.makeText(this, s, Toast.LENGTH_SHORT).show()
     }
 
+    fun onClickCategoria(v: View) {
+        val categoria = v.tag as Categoria
+        val intent = Intent(this, ChistesActivity::class.java)
+        intent.putExtra("categoria", categoria)
+        intent.putExtra("usuario", usuario)
+        startActivity(intent)
+    }
 
 }
