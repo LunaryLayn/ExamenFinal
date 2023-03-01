@@ -40,12 +40,12 @@ class MainRepository {
         return null
     }
 
-    suspend fun getAvgPuntosByChiste(idchiste: Long): Float {
+    suspend fun getAvgPuntosByChiste(idchiste: Long): Int {
         val webResponse = service.getAvgPuntosByChiste(idchiste).await()
         if (webResponse.isSuccessful) {
             return webResponse.body()!!.avgpuntos
         }
-        return 0f
+        return 0
     }
 
     suspend fun saveChiste(chiste: Chiste): Chiste? {

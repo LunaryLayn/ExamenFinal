@@ -32,5 +32,5 @@ data class Respuesta(
     val puntos: List<Punto>,
     val usuario: Usuario,
     val usuarios: List<Usuario>,
-    val avgpuntos: Float
+    val avgpuntos: Int
 )

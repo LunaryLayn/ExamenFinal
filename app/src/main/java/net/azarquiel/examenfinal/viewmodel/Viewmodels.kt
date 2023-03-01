@@ -48,8 +48,8 @@ class MainViewModel : ViewModel() {
         return usuarioresponse
     }
 
-    fun getAvgPuntosByChiste(idchiste: Long): MutableLiveData<Float> {
-        val avgpuntos = MutableLiveData<Float>()
+    fun getAvgPuntosByChiste(idchiste: Long): MutableLiveData<Int> {
+        val avgpuntos = MutableLiveData<Int>()
         GlobalScope.launch(Main) {
             avgpuntos.value = repository.getAvgPuntosByChiste(idchiste)
         }

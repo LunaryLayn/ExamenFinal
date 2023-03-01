@@ -19,10 +19,12 @@ import net.azarquiel.examenfinal.adapters.ChisteAdapter
 import net.azarquiel.examenfinal.databinding.ActivityChistesBinding
 import net.azarquiel.examenfinal.entities.Categoria
 import net.azarquiel.examenfinal.entities.Chiste
+import net.azarquiel.examenfinal.entities.Usuario
 import net.azarquiel.examenfinal.viewmodel.MainViewModel
 
 class ChistesActivity : AppCompatActivity() {
 
+    private var usuario: Usuario? = null
     private lateinit var chistes: List<Chiste>
     private lateinit var categoria: Categoria
     private lateinit var adapter: ChisteAdapter
@@ -42,11 +44,13 @@ class ChistesActivity : AppCompatActivity() {
         viewmodel = ViewModelProvider(this).get(MainViewModel::class.java)
 
         categoria = intent.getSerializableExtra("categoria") as Categoria
+        usuario = intent.getSerializableExtra("usuario") as Usuario?
+
         title = "Chistes de ${categoria.nombre}"
         initRV()
         getChistes()
         binding.fab.setOnClickListener { view ->
-            newChiste()
+            if(usuario!=null){ newChiste() } else { msg("Debes estar logueado para añadir un chiste") }
         }
     }
 
@@ -120,10 +124,11 @@ class ChistesActivity : AppCompatActivity() {
     }
 
     fun onClickChiste(v: View) {
-       /* val categoria = v.tag as Categoria
-        val intent = Intent(this, ChistesActivity::class.java)
-        intent.putExtra("categoria", categoria)
+        val chiste = v.tag as Chiste
+        val intent = Intent(this, ChisteDetail::class.java)
+        intent.putExtra("chiste", chiste)
         intent.putExtra("usuario", usuario)
-        startActivity(intent) */
+        intent.putExtra("categoria", categoria)
+        startActivity(intent)
     }
 }
