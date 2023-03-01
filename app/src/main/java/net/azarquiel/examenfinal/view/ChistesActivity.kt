@@ -1,11 +1,18 @@
 package net.azarquiel.examenfinal.view
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.EditText
+import android.widget.LinearLayout
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.textfield.TextInputLayout
 import net.azarquiel.examenfinal.R
 import net.azarquiel.examenfinal.adapters.CategoriaAdapter
 import net.azarquiel.examenfinal.adapters.ChisteAdapter
@@ -39,10 +46,63 @@ class ChistesActivity : AppCompatActivity() {
         initRV()
         getChistes()
         binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+            newChiste()
         }
     }
+
+    private fun newChiste() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Nuevo comentario")
+        val ll = LinearLayout(this)
+        ll.setPadding(30, 30, 30, 30)
+        ll.orientation = LinearLayout.VERTICAL
+
+        val lp = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.MATCH_PARENT
+        )
+        lp.setMargins(0, 50, 0, 50)
+
+        val textInputLayoutPass = TextInputLayout(this)
+        textInputLayoutPass.layoutParams = lp
+        val etchiste = EditText(this)
+        etchiste.setPadding(0, 80, 0, 80)
+        etchiste.textSize = 20.0F
+        etchiste.hint = "Redacta tu chiste"
+        textInputLayoutPass.addView(etchiste)
+
+        ll.addView(textInputLayoutPass)
+
+        builder.setView(ll)
+
+        builder.setPositiveButton("Aceptar") { dialog, which ->
+            saveChiste(etchiste.text.toString())
+        }
+
+        builder.setNegativeButton("Cancelar") { dialog, which ->
+        }
+        builder.show()
+    }
+
+    private fun saveChiste(s: String) {
+
+        val chi = Chiste(12, categoria.id, s)
+        viewmodel.saveChiste(chi).observe(this, Observer { it ->
+            it?.let{
+                val comentariosanterior = ArrayList(chistes)
+                comentariosanterior.add(0, Chiste(12, categoria.id, s))
+                chistes = comentariosanterior
+                adapter.setChistes(chistes)
+                msg("Chiste guardado correctamente")
+            }
+        })
+    }
+
+    private fun msg(s: String) {
+        Toast.makeText(this, s, Toast.LENGTH_LONG).show()
+    }
+
+
 
     private fun getChistes() {
         viewmodel.getChistesByCategoria(categoria.id).observe(this, Observer { it ->
@@ -59,4 +119,11 @@ class ChistesActivity : AppCompatActivity() {
         binding.cmchistes.rvchiste.adapter = adapter
     }
 
+    fun onClickChiste(v: View) {
+       /* val categoria = v.tag as Categoria
+        val intent = Intent(this, ChistesActivity::class.java)
+        intent.putExtra("categoria", categoria)
+        intent.putExtra("usuario", usuario)
+        startActivity(intent) */
+    }
 }
