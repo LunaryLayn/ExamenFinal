@@ -46,6 +46,7 @@ class ChisteDetail : AppCompatActivity() {
         tvcontenido.text = chiste.contenido
         Picasso.get().load("http://www.ies-azarquiel.es/paco/apichistes/img/${categoria.id}.png").into(ivchiste)
         Log.d("Soy una prueba", "hola")
+
         getScore()
 
         ratescorebar.setOnRatingBarChangeListener { ratingBar, _, _ ->
@@ -57,6 +58,7 @@ class ChisteDetail : AppCompatActivity() {
         if(usuario == null) {
             msg("Debes estar logueado para puntuar un chiste")
             ratescorebar.rating=0f
+            getScore()
             return
         } else {
             var estrellas = rating.toLong()
