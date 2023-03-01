@@ -56,7 +56,7 @@ class ChistesActivity : AppCompatActivity() {
 
     private fun newChiste() {
         val builder = AlertDialog.Builder(this)
-        builder.setTitle("Nuevo comentario")
+        builder.setTitle("Nuevo chiste")
         val ll = LinearLayout(this)
         ll.setPadding(30, 30, 30, 30)
         ll.orientation = LinearLayout.VERTICAL
