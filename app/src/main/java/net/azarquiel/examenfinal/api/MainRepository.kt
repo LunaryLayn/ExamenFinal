@@ -1,9 +1,6 @@
 package net.azarquiel.examenfinal.api
 
-import net.azarquiel.examenfinal.entities.Categoria
-import net.azarquiel.examenfinal.entities.Chiste
-import net.azarquiel.examenfinal.entities.Punto
-import net.azarquiel.examenfinal.entities.Usuario
+import net.azarquiel.examenfinal.entities.*
 
 class MainRepository {
     val service = WebAccess.chisteService
@@ -43,7 +40,7 @@ class MainRepository {
     suspend fun getAvgPuntosByChiste(idchiste: Long): Int {
         val webResponse = service.getAvgPuntosByChiste(idchiste).await()
         if (webResponse.isSuccessful) {
-            return webResponse.body()!!.avgpuntos
+            return webResponse.body()!!.avg
         }
         return 0
     }

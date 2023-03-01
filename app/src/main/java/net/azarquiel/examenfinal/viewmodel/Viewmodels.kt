@@ -6,10 +6,7 @@ import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import net.azarquiel.examenfinal.api.MainRepository
-import net.azarquiel.examenfinal.entities.Categoria
-import net.azarquiel.examenfinal.entities.Chiste
-import net.azarquiel.examenfinal.entities.Punto
-import net.azarquiel.examenfinal.entities.Usuario
+import net.azarquiel.examenfinal.entities.*
 
 class MainViewModel : ViewModel() {
 
@@ -49,11 +46,11 @@ class MainViewModel : ViewModel() {
     }
 
     fun getAvgPuntosByChiste(idchiste: Long): MutableLiveData<Int> {
-        val avgpuntos = MutableLiveData<Int>()
+        val avg = MutableLiveData<Int>()
         GlobalScope.launch(Main) {
-            avgpuntos.value = repository.getAvgPuntosByChiste(idchiste)
+            avg.value = repository.getAvgPuntosByChiste(idchiste)
         }
-        return avgpuntos
+        return avg
     }
     fun saveChiste(chiste: Chiste): MutableLiveData<Chiste> {
         val chisteresponse = MutableLiveData<Chiste>()

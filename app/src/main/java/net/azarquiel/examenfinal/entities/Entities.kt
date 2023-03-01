@@ -23,6 +23,9 @@ data class Punto(
     val idchiste: Long,
     val puntos: Long
 ): Serializable
+
+
+
 data class Respuesta(
     val categoria: Categoria,
     val categorias: List<Categoria>,
@@ -32,5 +35,5 @@ data class Respuesta(
     val puntos: List<Punto>,
     val usuario: Usuario,
     val usuarios: List<Usuario>,
-    val avgpuntos: Int
+    val avg: Int
 )

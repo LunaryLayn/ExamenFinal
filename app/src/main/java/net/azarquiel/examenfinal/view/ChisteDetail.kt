@@ -11,10 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.squareup.picasso.Picasso
 import net.azarquiel.examenfinal.R
-import net.azarquiel.examenfinal.entities.Categoria
-import net.azarquiel.examenfinal.entities.Chiste
-import net.azarquiel.examenfinal.entities.Punto
-import net.azarquiel.examenfinal.entities.Usuario
+import net.azarquiel.examenfinal.entities.*
 import net.azarquiel.examenfinal.viewmodel.MainViewModel
 
 class ChisteDetail : AppCompatActivity() {
@@ -46,7 +43,7 @@ class ChisteDetail : AppCompatActivity() {
         tvcategoria.text = categoria.nombre
         tvcontenido.text = chiste.contenido
         Picasso.get().load("http://www.ies-azarquiel.es/paco/apichistes/img/${categoria.id}.png").into(ivchiste)
-
+        Log.d("Soy una prueba", "hola")
         getScore()
 
         ratescorebar.setOnRatingBarChangeListener { ratingBar, _, _ ->
@@ -70,9 +67,9 @@ class ChisteDetail : AppCompatActivity() {
     }
 
     private fun getScore() {
-        viewmodel.getAvgPuntosByChiste(chiste.id).observe( this, Observer { it ->
-            it?.let{
-                Log.d("Puntuacion (si llega)", it.toString())
+        viewmodel.getAvgPuntosByChiste(chiste.id).observe(this, Observer { it ->
+            it?.let {
+                scorebar.rating = it.toFloat()
             }
         })
     }
