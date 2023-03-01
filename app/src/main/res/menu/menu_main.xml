@@ -2,6 +2,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="net.azarquiel.avesapiservice.view.MainActivity">
+    <item android:id="@+id/action_search"
+        android:title="@string/search_title"
+        android:icon="@android:drawable/ic_menu_search"
+        app:showAsAction="collapseActionView|ifRoom"
+        app:actionViewClass="androidx.appcompat.widget.SearchView" />
     <item android:id="@+id/action_login"
         android:title="@string/login_title"
         android:icon="@drawable/ic_account"
@@ -11,10 +16,4 @@
         android:title="@string/logout_title"
         android:icon="@drawable/ic_logout"
         app:showAsAction="ifRoom"/>
-
-    <item android:id="@+id/action_search"
-        android:title="@string/search_title"
-        android:icon="@android:drawable/ic_menu_search"
-        app:showAsAction="collapseActionView|ifRoom"
-        app:actionViewClass="androidx.appcompat.widget.SearchView" />
 </menu>
