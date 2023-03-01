@@ -40,6 +40,8 @@ class ChisteDetail : AppCompatActivity() {
         scorebar = findViewById<RatingBar>(R.id.chistedetscore)
         ratescorebar = findViewById<RatingBar>(R.id.chistedetgivescore)
 
+        scorebar.setIsIndicator(true)
+
         tvcategoria.text = categoria.nombre
         tvcontenido.text = chiste.contenido
         Picasso.get().load("http://www.ies-azarquiel.es/paco/apichistes/img/${categoria.id}.png").into(ivchiste)
@@ -63,6 +65,7 @@ class ChisteDetail : AppCompatActivity() {
                 }
             })
             msg("Puntuacion guardada correctamente")
+            getScore()
         }
     }
 
